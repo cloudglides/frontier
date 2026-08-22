@@ -8,6 +8,7 @@ defmodule Frontier.Application do
       Frontier.Repo,
       {DNSCluster, query: Application.get_env(:frontier, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Frontier.PubSub},
+      FrontierWeb.Presence,
       FrontierWeb.Endpoint
     ]
 
