@@ -1,0 +1,2 @@
+defmodule Frontier do
+  end
