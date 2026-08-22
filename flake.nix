@@ -76,8 +76,12 @@
               # probably needed for Phoenix assets
               nodejs_latest
 
-              # database for the pastebin app
-              postgresql
+            # database for the pastebin app
+            postgresql
+
+            # containers
+            podman
+            podman-compose
 
               self.formatter.${system}
             ]
@@ -102,5 +106,75 @@
     );
 
     formatter = forEachSupportedSystem ({pkgs, ...}: pkgs.nixfmt);
+
+    # one-command container deploys, e.g.:  nix run .#up
+    apps = forEachSupportedSystem ({
+      pkgs,
+      system,
+    }: let
+      ensureEnv =
+        pkgs.writeShellScript "frontier-ensure-env" # bash
+        ''
+          cd "$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+          if [ ! -f .env ]; then
+            echo "Generating .env with a fresh SECRET_KEY_BASE..."
+            {
+              echo "SECRET_KEY_BASE=$(${pkgs.openssl}/bin/openssl rand -hex 64)"
+              echo "# PHX_HOST=yourdomain.com"
+            } > .env
+          fi
+        '';
+
+      compose =
+        pkgs.writeShellScript "frontier-compose" # bash
+        ''
+          export PATH=${pkgs.podman}/bin:$PATH
+          export PODMAN_COMPOSE_PROVIDER=${pkgs.podman-compose}/bin/podman-compose
+
+          # rootless podman outside NixOS needs these to exist
+          confdir="''${XDG_CONFIG_HOME:-$HOME/.config}/containers"
+          mkdir -p "$confdir"
+          [ -f "$confdir/policy.json" ] || printf '%s\n' \
+            '{"default":[{"type":"insecureAcceptAnything"}]}' > "$confdir/policy.json"
+
+          exec ${pkgs.podman}/bin/podman compose "$@"
+        '';
+    in rec {
+      default = up;
+
+      up = {
+        type = "app";
+        program = toString (pkgs.writeShellScript "frontier-up" # bash
+          ''
+            set -e
+            ${ensureEnv}
+            echo "Building + starting Frontier (podman)..."
+            exec ${compose} up -d --build "$@"
+          '');
+      };
+
+      down = {
+        type = "app";
+        program = toString (pkgs.writeShellScript "frontier-down" # bash
+          ''exec ${compose} down "$@"'');
+      };
+
+      logs = {
+        type = "app";
+        program = toString (pkgs.writeShellScript "frontier-logs" # bash
+          ''exec ${compose} logs -f app "$@"'');
+      };
+
+      migrate = {
+        type = "app";
+        program = toString (pkgs.writeShellScript "frontier-migrate" # bash
+          ''
+            set -e
+            ${ensureEnv}
+            exec ${compose} run --rm --entrypoint "" \
+              frontier sh -c "/app/bin/frontier eval Frontier.Release.migrate"
+          '');
+      };
+    });
   };
 }
