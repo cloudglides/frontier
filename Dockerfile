@@ -28,7 +28,7 @@ RUN mix assets.setup && mix assets.deploy
 RUN mix release
 
 # ---------- runtime stage ----------
-FROM docker.io/library/debian:bookworm-slim AS app
+FROM docker.io/library/debian:trixie-slim AS app
 
 RUN apt-get update -qq && apt-get install -y --no-install-recommends openssl libncurses6 ca-certificates \
     && rm -rf /var/lib/apt/lists/*

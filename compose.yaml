@@ -27,7 +27,6 @@ services:
       PHX_HOST: ${PHX_HOST:-localhost}
       PORT: "4000"
       POOL_SIZE: "10"
-      ECTO_IPV6: "true"
     ports:
       - "${APP_PORT:-4000}:4000"
     command: >
