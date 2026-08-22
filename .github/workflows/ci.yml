@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@v16
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: mix-${{ runner.os }}-${{ hashFiles('mix.lock', 'flake.lock') }}
+          restore-keys: mix-${{ runner.os }}-
+
+      - name: Install Hex and Rebar
+        run: |
+          nix develop -c mix local.hex --force
+          nix develop -c mix local.rebar --force
+
+      - name: Fetch dependencies
+        run: nix develop -c mix deps.get
+
+      - name: Compile, format check, unused deps, tests
+        run: nix develop -c mix precommit
+
+  assets:
+    name: Assets build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@v16
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            deps
+            _build
+          key: mix-assets-${{ runner.os }}-${{ hashFiles('mix.lock', 'flake.lock') }}
+          restore-keys: mix-assets-${{ runner.os }}-
+
+      - name: Install Hex and Rebar
+        run: |
+          nix develop -c mix local.hex --force
+          nix develop -c mix local.rebar --force
+
+      - name: Fetch dependencies
+        run: nix develop -c mix deps.get
+
+      - name: Compile
+        run: nix develop -c mix compile
+
+      - name: Build assets
+        run: nix develop -c mix assets.deploy

@@ -6,7 +6,6 @@
 @source "../css";
 @source "../js";
 @source "../../lib/frontier_web";
-/* Required for Tailwind to automatically pick up changes in colocated CSS files in dev */
 @source "../../_build/dev/phoenix-colocated/frontier/*/";
 
 /* A Tailwind plugin that makes "hero-#{ICON}" classes available.

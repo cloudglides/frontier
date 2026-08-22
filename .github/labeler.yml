@@ -1,0 +1,12 @@
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - README.md
+          - AGENTS.md
+
+enhancement:
+  - changed-files:
+      - any-glob-to-any-file:
+          - lib/**
+          - assets/**
+          - priv/**
