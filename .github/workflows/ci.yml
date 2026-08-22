@@ -8,6 +8,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     name: Lint & Test
@@ -31,24 +35,25 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v16
 
-      - uses: actions/cache@v4
+      - name: Restore build cache
+        uses: actions/cache@v4
         with:
           path: |
             deps
             _build
+            ~/.mix
           key: mix-${{ runner.os }}-${{ hashFiles('mix.lock', 'flake.lock') }}
           restore-keys: mix-${{ runner.os }}-
 
-      - name: Install Hex and Rebar
+      - name: Lint, compile & test
         run: |
-          nix develop -c mix local.hex --force
-          nix develop -c mix local.rebar --force
-
-      - name: Fetch dependencies
-        run: nix develop -c mix deps.get
-
-      - name: Compile, format check, unused deps, tests
-        run: nix develop -c mix precommit
+          nix develop -c bash -c '
+            set -e
+            mix local.hex --force > /dev/null
+            mix local.rebar --force > /dev/null
+            mix deps.get
+            mix precommit
+          '
 
   assets:
     name: Assets build
@@ -58,24 +63,23 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@v16
 
-      - uses: actions/cache@v4
+      - name: Restore build cache
+        uses: actions/cache@v4
         with:
           path: |
             deps
             _build
+            ~/.mix
           key: mix-assets-${{ runner.os }}-${{ hashFiles('mix.lock', 'flake.lock') }}
           restore-keys: mix-assets-${{ runner.os }}-
 
-      - name: Install Hex and Rebar
-        run: |
-          nix develop -c mix local.hex --force
-          nix develop -c mix local.rebar --force
-
-      - name: Fetch dependencies
-        run: nix develop -c mix deps.get
-
-      - name: Compile
-        run: nix develop -c mix compile
-
       - name: Build assets
-        run: nix develop -c mix assets.deploy
+        run: |
+          nix develop -c bash -c '
+            set -e
+            mix local.hex --force > /dev/null
+            mix local.rebar --force > /dev/null
+            mix deps.get
+            mix compile
+            mix assets.deploy
+          '
