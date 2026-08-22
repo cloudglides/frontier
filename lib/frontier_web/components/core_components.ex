@@ -1,10 +1,10 @@
 defmodule FrontierWeb.CoreComponents do
-    use Phoenix.Component
+  use Phoenix.Component
   use Gettext, backend: FrontierWeb.Gettext
 
   alias Phoenix.LiveView.JS
 
-    attr :id, :string, doc: "the optional id of flash container"
+  attr :id, :string, doc: "the optional id of flash container"
   attr :flash, :map, default: %{}, doc: "the map of flash messages to display"
   attr :title, :string, default: nil
   attr :kind, :atom, values: [:info, :error], doc: "used for styling and flash lookup"
@@ -44,7 +44,7 @@ defmodule FrontierWeb.CoreComponents do
     """
   end
 
-    attr :rest, :global, include: ~w(href navigate patch method download name value disabled)
+  attr :rest, :global, include: ~w(href navigate patch method download name value disabled)
   attr :class, :any
   attr :variant, :string, values: ~w(primary)
   slot :inner_block, required: true
@@ -72,7 +72,7 @@ defmodule FrontierWeb.CoreComponents do
     end
   end
 
-    attr :id, :any, default: nil
+  attr :id, :any, default: nil
   attr :name, :any
   attr :label, :string, default: nil
   attr :value, :any
@@ -219,7 +219,7 @@ defmodule FrontierWeb.CoreComponents do
     """
   end
 
-    slot :inner_block, required: true
+  slot :inner_block, required: true
   slot :subtitle
   slot :actions
 
@@ -239,7 +239,7 @@ defmodule FrontierWeb.CoreComponents do
     """
   end
 
-    attr :id, :string, required: true
+  attr :id, :string, required: true
   attr :rows, :list, required: true
   attr :row_id, :any, default: nil, doc: "the function for generating the row id"
   attr :row_click, :any, default: nil, doc: "the function for handling phx-click on each row"
@@ -292,7 +292,7 @@ defmodule FrontierWeb.CoreComponents do
     """
   end
 
-    slot :item, required: true do
+  slot :item, required: true do
     attr :title, :string, required: true
   end
 
@@ -309,7 +309,7 @@ defmodule FrontierWeb.CoreComponents do
     """
   end
 
-    attr :name, :string, required: true
+  attr :name, :string, required: true
   attr :class, :any, default: "size-4"
 
   def icon(%{name: "hero-" <> _} = assigns) do
@@ -317,7 +317,6 @@ defmodule FrontierWeb.CoreComponents do
     <span class={[@name, @class]} />
     """
   end
-
 
   def show(js \\ %JS{}, selector) do
     JS.show(js,
@@ -340,7 +339,7 @@ defmodule FrontierWeb.CoreComponents do
     )
   end
 
-    def translate_error({msg, opts}) do
+  def translate_error({msg, opts}) do
     if count = opts[:count] do
       Gettext.dngettext(FrontierWeb.Gettext, "errors", msg, msg, count, opts)
     else
@@ -348,7 +347,7 @@ defmodule FrontierWeb.CoreComponents do
     end
   end
 
-    def translate_errors(errors, field) when is_list(errors) do
+  def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
 end

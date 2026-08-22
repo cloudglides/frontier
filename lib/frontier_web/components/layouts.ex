@@ -1,9 +1,9 @@
 defmodule FrontierWeb.Layouts do
-    use FrontierWeb, :html
+  use FrontierWeb, :html
 
   embed_templates "layouts/*"
 
-    attr :flash, :map, required: true, doc: "the map of flash messages"
+  attr :flash, :map, required: true, doc: "the map of flash messages"
 
   attr :current_scope, :map,
     default: nil,
@@ -50,7 +50,7 @@ defmodule FrontierWeb.Layouts do
     """
   end
 
-    attr :flash, :map, required: true, doc: "the map of flash messages"
+  attr :flash, :map, required: true, doc: "the map of flash messages"
   attr :id, :string, default: "flash-group", doc: "the optional id of flash container"
 
   def flash_group(assigns) do
@@ -92,7 +92,7 @@ defmodule FrontierWeb.Layouts do
     """
   end
 
-    def theme_toggle(assigns) do
+  def theme_toggle(assigns) do
     ~H"""
     <div class="card relative flex flex-row items-center border-2 border-base-300 bg-base-300 rounded-full">
       <div class="absolute w-1/3 h-full rounded-full border-1 border-base-200 bg-base-100 brightness-200 left-0 [[data-theme=light]_&]:left-1/3 [[data-theme=dark]_&]:left-2/3 [[data-theme-source=system]_&]:!left-0 transition-[left]" />

@@ -14,12 +14,11 @@ config :frontier, FrontierWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "h+rpjPkwoN//Yon5BJP3zJQrl7tYBXmTkp3TaO6s7lvToNcuiYxxzSO2lSLkZKZD",
+  secret_key_base: "bW4hE0az469i7qln4TD0wXCsHjgdJrngX2EYAmnqDt/SiXp2HNkj0kqhjrP2BPxk",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:frontier, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:frontier, ~w(--watch)]}
   ]
-
 
 config :frontier, dev_routes: true
 
@@ -34,4 +33,4 @@ config :phoenix_live_view,
   debug_attributes: true,
   enable_expensive_runtime_checks: true
 
-config :swoosh, :api_client,
+config :swoosh, :api_client, false

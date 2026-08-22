@@ -1,4 +1,3 @@
-
 import Config
 
 config :frontier,
@@ -10,9 +9,10 @@ config :frontier, FrontierWeb.Endpoint,
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [html: FrontierWeb.ErrorHTML, json: FrontierWeb.ErrorJSON],
-    layout:  ],
+    layout: false
+  ],
   pubsub_server: Frontier.PubSub,
-  live_view: [signing_salt: "GJuUB7Pc"]
+  live_view: [signing_salt: "twpHmSaq"]
 
 config :phoenix_live_view,
   root_tag_attribute: "phx-r"

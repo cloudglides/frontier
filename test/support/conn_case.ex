@@ -1,5 +1,4 @@
 defmodule FrontierWeb.ConnCase do
-  
   use ExUnit.CaseTemplate
 
   using do

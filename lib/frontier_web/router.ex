@@ -20,7 +20,6 @@ defmodule FrontierWeb.Router do
     get "/", PageController, :home
   end
 
-
   if Application.compile_env(:frontier, :dev_routes) do
     import Phoenix.LiveDashboard.Router
 

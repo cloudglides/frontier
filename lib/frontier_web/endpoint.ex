@@ -4,7 +4,7 @@ defmodule FrontierWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_frontier_key",
-    signing_salt: "gRmOw3MF",
+    signing_salt: "/nbbtol6",
     same_site: "Lax"
   ]
 

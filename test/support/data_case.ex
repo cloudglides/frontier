@@ -1,5 +1,4 @@
 defmodule Frontier.DataCase do
-  
   use ExUnit.CaseTemplate
 
   using do
@@ -18,12 +17,12 @@ defmodule Frontier.DataCase do
     :ok
   end
 
-    def setup_sandbox(tags) do
+  def setup_sandbox(tags) do
     pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Frontier.Repo, shared: not tags[:async])
     on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
   end
 
-    def errors_on(changeset) do
+  def errors_on(changeset) do
     Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
       Regex.replace(~r"%{(\w+)}", message, fn _, key ->
         opts |> Keyword.get(String.to_existing_atom(key), key) |> to_string()

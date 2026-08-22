@@ -1,6 +1,5 @@
 import Config
 
-
 if System.get_env("PHX_SERVER") do
   config :frontier, FrontierWeb.Endpoint, server: true
 end
@@ -53,6 +52,4 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0}
     ],
     secret_key_base: secret_key_base
-
-
 end

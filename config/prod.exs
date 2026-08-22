@@ -12,6 +12,6 @@ config :frontier, FrontierWeb.Endpoint,
 
 config :swoosh, api_client: Swoosh.ApiClient.Req
 
-config :swoosh, local:# Do not print debug messages in production
-config :logger, level: :info
+config :swoosh, local: false
 
+config :logger, level: :info

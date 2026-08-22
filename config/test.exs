@@ -10,11 +10,13 @@ config :frontier, Frontier.Repo,
 
 config :frontier, FrontierWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "0n95D/WbvlWq+h65WlQGUBwPjmonf9teIhS3LkByx8aZyLW99+G0S14sj9iNTifQ",
-  server:# In test we don't send emails
+  secret_key_base: "N676PlkU6y6NRSOKNpDgsVTSocp7xJnd+Z1xHcUA/2+jXsdsdQ4Aa6w2NtGvGcCj",
+  server: false
+
 config :frontier, Frontier.Mailer, adapter: Swoosh.Adapters.Test
 
-config :swoosh, :api_client,# Print only warnings and errors during test
+config :swoosh, :api_client, false
+
 config :logger, level: :warning
 
 config :phoenix, :plug_init_mode, :runtime

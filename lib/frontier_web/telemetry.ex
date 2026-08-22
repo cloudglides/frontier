@@ -46,7 +46,6 @@ defmodule FrontierWeb.Telemetry do
         tags: [:event],
         unit: {:native, :millisecond}
       ),
-
       summary("frontier.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
@@ -68,7 +67,6 @@ defmodule FrontierWeb.Telemetry do
         description:
           "The time the connection spent waiting before being checked out for the query"
       ),
-
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
       summary("vm.total_run_queue_lengths.total"),
       summary("vm.total_run_queue_lengths.cpu"),
@@ -77,7 +75,6 @@ defmodule FrontierWeb.Telemetry do
   end
 
   defp periodic_measurements do
-    [
-    ]
+    []
   end
 end
