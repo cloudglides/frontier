@@ -1,0 +1,36 @@
+services:
+  db:
+    image: docker.io/library/postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: frontier
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-frontier_dev_password}
+      POSTGRES_DB: frontier_prod
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U frontier -d frontier_prod"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    image: frontier
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: ecto://frontier:${POSTGRES_PASSWORD:-frontier_dev_password}@db/frontier_prod
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      PHX_HOST: ${PHX_HOST:-localhost}
+      PORT: "4000"
+      POOL_SIZE: "10"
+    ports:
+      - "${APP_PORT:-4000}:4000"
+    command: >
+      sh -c "/app/bin/frontier eval Frontier.Release.migrate && exec /app/bin/frontier start"
+
+volumes:
+  pgdata:
