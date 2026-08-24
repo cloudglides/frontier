@@ -1,20 +1,43 @@
 body {
-  background-color: rgb(36, 29, 43);
+  background-color: #1c0013;
+  background-image: url("https://www.transparenttextures.com/patterns/grunge-wall.png");
+  margin: 0;
+  padding: 40px 20px;
+  color: #c7a8bd;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-h1, p {
-  color: rgb(129, 96, 207);
+::selection {
+  background-color: #76536f;
+  color: #f0dce9;
+}
+
+h1,
+p {
   text-align: center;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+h1 {
+  color: #d8bdcf;
+}
+
+p {
+  color: #a98e9f;
 }
 
 .comingsoon {
+  position: relative;
   width: 420px;
-  margin: 120px auto;
+  max-width: calc(100% - 40px);
+  margin: 80px auto 30px;
   padding: 32px;
-  background-color: rgb(45, 36, 55);
-  border: 4px dashed rgb(129, 96, 207);
-  box-shadow: 8px 8px 0 rgb(20, 16, 25);
+  transform: rotate(0.7deg);
+  background-color: #24151f;
+  border: 5px solid #76536f;
+  box-shadow:
+    7px 7px 0 #0d080c,
+    11px 11px 0 #3b2735;
+
   text-align: center;
 }
 
@@ -22,35 +45,105 @@ h1, p {
   content: "●  ●  ●";
   display: block;
   text-align: left;
-  color: rgb(129, 96, 207);
+  color: #76536f;
   font-size: 12px;
   letter-spacing: 4px;
   margin-bottom: 25px;
 }
 
 .comingsoon h1 {
-  margin: 0 0 12px;
-  color: rgb(170, 140, 235);
+  margin: 0 0 18px;
+  color: #d8bdcf;
+  font-size: 28px;
+  letter-spacing: 1px;
 }
 
 .comingsoon p {
-  margin: 0;
-  color: rgb(129, 96, 207);
-  line-height: 1.5;
+  margin: 0 0 14px;
+  color: #a98e9f;
+  line-height: 1.6;
+}
+
+.puzzle {
+  width: 420px;
+  max-width: calc(100% - 40px);
+  margin: 100px auto 30px;
+  padding: 35px;
+  background-color: #24151f;
+  border: 5px solid #76536f;
+  box-shadow: 7px 7px 0 #0d080c;
+  border-radius: 2px 5px 3px 4px;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.puzzle h1 {
+  margin: 0 0 20px;
+  color: #d8bdcf;
+  font-size: 28px;
+}
+
+.puzzle p {
+  color: #a98e9f;
+  line-height: 1.6;
+}
+
+.puzzle input {
+  box-sizing: border-box;
+  width: 85%;
+  margin-top: 15px;
+  padding: 12px;
+  background: #160c13;
+  color: #d8bdcf;
+  border: 3px solid #76536f;
+  outline: none;
+  caret-color: #c7a8bd;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.puzzle input:focus {
+  border-color: #c7a8bd;
+  box-shadow: 3px 3px 0 #0d080c;
+}
+
+.puzzle button {
+  margin-top: 16px;
+  padding: 11px 26px;
+  background: #76536f;
+  color: #1c0013;
+  border: 3px solid #92788d;
+  box-shadow: 4px 4px 0 #0d080c;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.puzzle button:hover {
+  background: #92788d;
+}
+
+.puzzle button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #0d080c;
 }
 
 .usercount {
-  width: fit-content;
-  margin: -90px auto 0;
-  padding: 10px 18px;
-  background-color: rgb(45, 36, 55);
-  border: 1px dashe rgb(129, 96, 207);
-  box-shadow: 4px 4px 0 rgb(20, 16, 25);
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 10;
+  padding: 9px 15px;
+  background-color: #24151f;
+  border: 3px solid #76536f;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 #0d080c;
 }
 
 .usercount p {
   margin: 0;
-  color: rgb(170, 140, 235);
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 14px;
+  color: #c7a8bd;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 13px;
 }

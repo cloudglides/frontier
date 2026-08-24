@@ -1,8 +1,29 @@
-<div class="comingsoon">
-    <h1>work in progress!</h1>
-    <p>our team is working on this project.. cya soon!!</p>
+<div class="usercount">
+  <p><%= @viewer_count %> people are currently here</p>
 </div>
 
-<div class="usercount">
-    <p><%= @viewer_count %> people are currently here</p>
-</div>
+<%= if @unlocked do %>
+
+  <div class="comingsoon" id="comingsoon">
+    <h1>work in progress!</h1>
+    <p>our team is working on this project.. cya soon!!</p>
+  </div>
+
+<% else %>
+
+  <div class="puzzle">
+    <h1>can you figure this out?</h1>
+
+    <p>decode this transmission:</p>
+
+    <p>01000110 01110010 01101111 01101110 01110100 01101001 01100101 01110010</p>
+
+    <p>hint: find something (on Google) that can translate them.</p>
+
+    <form phx-submit="decode">
+      <input name="answer" type="text" placeholder="enter the decoded message">
+      <button type="submit">Unlock</button>
+    </form>
+  </div>
+
+<% end %>
