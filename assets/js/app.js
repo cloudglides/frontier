@@ -26,6 +26,16 @@ import {hooks as colocatedHooks} from "phoenix-colocated/frontier"
 import topbar from "../vendor/topbar"
 
 const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+const ComingSoon = {
+  mounted() {
+    gsap.from(this.el, {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      ease: "power2.out"
+    })
+  }
+}
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2500,
   params: {_csrf_token: csrfToken},
@@ -39,7 +49,24 @@ window.addEventListener("phx:page-loading-stop", _info => topbar.hide())
 
 // connect if there are any LiveViews on the page
 liveSocket.connect()
+const observer = new MutationObserver(() => {
+  const comingSoon = document.querySelector("#comingsoon")
 
+  if (comingSoon) {
+    gsap.from(comingSoon, {
+      opacity: 0,
+      y: 20,
+      duration: 0.8
+    })
+
+    observer.disconnect()
+  }
+})
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+})
 // expose liveSocket on window for web console debug logs and latency simulation:
 // >> liveSocket.enableDebug()
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
