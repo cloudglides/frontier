@@ -1,0 +1,8 @@
+_build/
+deps/
+.git/
+.env
+result*
+*.md
+tmp/
+priv/static/uploads/

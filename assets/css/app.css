@@ -1,104 +1,154 @@
-/* See the Tailwind configuration guide for advanced usage
-   https://tailwindcss.com/docs/configuration */
-
 @import "tailwindcss" source(none);
-@import "phoenix-colocated/frontier/colocated.css";
 @source "../css";
 @source "../js";
 @source "../../lib/frontier_web";
-@source "../../_build/dev/phoenix-colocated/frontier/*/";
 
-/* A Tailwind plugin that makes "hero-#{ICON}" classes available.
-   The heroicons installation itself is managed by your mix.exs */
-@plugin "../vendor/heroicons";
-
-/* daisyUI Tailwind Plugin. */
-@plugin "daisyui/packages/bundle/daisyui" {
-  themes: false;
+body.home {
+  background-color: #1c0013;
+  background-image: url("https://www.transparenttextures.com/patterns/grunge-wall.png");
+  margin: 0;
+  padding: 40px 20px;
+  color: #c7a8bd;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
-/* daisyUI theme plugin.
-  We ship with two themes, a light one inspired on Phoenix colors and a dark one inspired
-  on Elixir colors. Build your own at: https://daisyui.com/theme-generator/ */
-@plugin "daisyui/packages/bundle/daisyui-theme" {
-  name: "dark";
-  default: false;
-  prefersdark: true;
-  color-scheme: "dark";
-  --color-base-100: oklch(30.33% 0.016 252.42);
-  --color-base-200: oklch(25.26% 0.014 253.1);
-  --color-base-300: oklch(20.15% 0.012 254.09);
-  --color-base-content: oklch(97.807% 0.029 256.847);
-  --color-primary: oklch(58% 0.233 277.117);
-  --color-primary-content: oklch(96% 0.018 272.314);
-  --color-secondary: oklch(58% 0.233 277.117);
-  --color-secondary-content: oklch(96% 0.018 272.314);
-  --color-accent: oklch(60% 0.25 292.717);
-  --color-accent-content: oklch(96% 0.016 293.756);
-  --color-neutral: oklch(37% 0.044 257.287);
-  --color-neutral-content: oklch(98% 0.003 247.858);
-  --color-info: oklch(58% 0.158 241.966);
-  --color-info-content: oklch(97% 0.013 236.62);
-  --color-success: oklch(60% 0.118 184.704);
-  --color-success-content: oklch(98% 0.014 180.72);
-  --color-warning: oklch(66% 0.179 58.318);
-  --color-warning-content: oklch(98% 0.022 95.277);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.21875rem;
-  --size-field: 0.21875rem;
-  --border: 1.5px;
-  --depth: 1;
-  --noise: 0;
+::selection {
+  background-color: #76536f;
+  color: #f0dce9;
 }
 
-@plugin "daisyui/packages/bundle/daisyui-theme" {
-  name: "light";
-  default: true;
-  prefersdark: false;
-  color-scheme: "light";
-  --color-base-100: oklch(98% 0 0);
-  --color-base-200: oklch(96% 0.001 286.375);
-  --color-base-300: oklch(92% 0.004 286.32);
-  --color-base-content: oklch(21% 0.006 285.885);
-  --color-primary: oklch(70% 0.213 47.604);
-  --color-primary-content: oklch(98% 0.016 73.684);
-  --color-secondary: oklch(55% 0.027 264.364);
-  --color-secondary-content: oklch(98% 0.002 247.839);
-  --color-accent: oklch(0% 0 0);
-  --color-accent-content: oklch(100% 0 0);
-  --color-neutral: oklch(44% 0.017 285.786);
-  --color-neutral-content: oklch(98% 0 0);
-  --color-info: oklch(62% 0.214 259.815);
-  --color-info-content: oklch(97% 0.014 254.604);
-  --color-success: oklch(70% 0.14 182.503);
-  --color-success-content: oklch(98% 0.014 180.72);
-  --color-warning: oklch(66% 0.179 58.318);
-  --color-warning-content: oklch(98% 0.022 95.277);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.21875rem;
-  --size-field: 0.21875rem;
-  --border: 1.5px;
-  --depth: 1;
-  --noise: 0;
+h1,
+p {
+  text-align: center;
 }
 
-/* Add variants based on LiveView classes */
-@custom-variant phx-click-loading (.phx-click-loading&, .phx-click-loading &);
-@custom-variant phx-submit-loading (.phx-submit-loading&, .phx-submit-loading &);
-@custom-variant phx-change-loading (.phx-change-loading&, .phx-change-loading &);
+h1 {
+  color: #d8bdcf;
+}
 
-/* Use the data attribute for dark mode  */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+p {
+  color: #a98e9f;
+}
 
-/* Make LiveView wrapper divs transparent for layout */
-[data-phx-session], [data-phx-teleported-src] { display: contents }
+.comingsoon {
+  position: relative;
+  width: 420px;
+  max-width: calc(100% - 40px);
+  margin: 80px auto 30px;
+  padding: 32px;
+  transform: rotate(0.7deg);
+  background-color: #24151f;
+  border: 5px solid #76536f;
+  box-shadow:
+    7px 7px 0 #0d080c,
+    11px 11px 0 #3b2735;
 
-/* This file is for your main application CSS */
+  text-align: center;
+}
+
+.comingsoon::before {
+  content: "●  ●  ●";
+  display: block;
+  text-align: left;
+  color: #76536f;
+  font-size: 12px;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+}
+
+.comingsoon h1 {
+  margin: 0 0 18px;
+  color: #d8bdcf;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.comingsoon p {
+  margin: 0 0 14px;
+  color: #a98e9f;
+  line-height: 1.6;
+}
+
+.puzzle {
+  width: 420px;
+  max-width: calc(100% - 40px);
+  margin: 100px auto 30px;
+  padding: 35px;
+  background-color: #24151f;
+  border: 5px solid #76536f;
+  box-shadow: 7px 7px 0 #0d080c;
+  border-radius: 2px 5px 3px 4px;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.puzzle h1 {
+  margin: 0 0 20px;
+  color: #d8bdcf;
+  font-size: 28px;
+}
+
+.puzzle p {
+  color: #a98e9f;
+  line-height: 1.6;
+}
+
+.puzzle input {
+  box-sizing: border-box;
+  width: 85%;
+  margin-top: 15px;
+  padding: 12px;
+  background: #160c13;
+  color: #d8bdcf;
+  border: 3px solid #76536f;
+  outline: none;
+  caret-color: #c7a8bd;
+  font-family: inherit;
+  font-size: 15px;
+}
+
+.puzzle input:focus {
+  border-color: #c7a8bd;
+  box-shadow: 3px 3px 0 #0d080c;
+}
+
+.puzzle button {
+  margin-top: 16px;
+  padding: 11px 26px;
+  background: #76536f;
+  color: #1c0013;
+  border: 3px solid #92788d;
+  box-shadow: 4px 4px 0 #0d080c;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.puzzle button:hover {
+  background: #92788d;
+}
+
+.puzzle button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #0d080c;
+}
+
+.usercount {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  z-index: 10;
+  padding: 9px 15px;
+  background-color: #24151f;
+  border: 3px solid #76536f;
+  border-radius: 6px;
+  box-shadow: 4px 4px 0 #0d080c;
+}
+
+.usercount p {
+  margin: 0;
+  color: #c7a8bd;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 13px;
+}

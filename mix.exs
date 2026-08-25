@@ -11,7 +11,12 @@ defmodule Frontier.MixProject do
       aliases: aliases(),
       deps: deps(),
       compilers: [:phoenix_live_view] ++ Mix.compilers(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      releases: [
+        frontier: [
+          include_executables_for: [:unix]
+        ]
+      ]
     ]
   end
 

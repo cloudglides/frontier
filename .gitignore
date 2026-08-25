@@ -13,3 +13,4 @@ npm-debug.log
 /assets/node_modules/
 .direnv/
 .envrc.local
+.env
