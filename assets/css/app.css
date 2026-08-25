@@ -1,10 +1,15 @@
-body {
+@import "tailwindcss" source(none);
+@source "../css";
+@source "../js";
+@source "../../lib/frontier_web";
+
+body.home {
   background-color: #1c0013;
   background-image: url("https://www.transparenttextures.com/patterns/grunge-wall.png");
   margin: 0;
   padding: 40px 20px;
   color: #c7a8bd;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 ::selection {

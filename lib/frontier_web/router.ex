@@ -18,6 +18,7 @@ defmodule FrontierWeb.Router do
     pipe_through :browser
 
     live "/", PageLive, :home
+    live "/:slug", SlugLive
   end
 
   if Application.compile_env(:frontier, :dev_routes) do

@@ -1,13 +1,29 @@
 import Config
 
-config :frontier, Frontier.Repo,
-  username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
-  database: "frontier_dev",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+for line <- File.stream!(Path.expand(".env"))
+        |> Stream.map(&String.trim/1)
+        |> Stream.reject(&(String.starts_with?(&1, "#") || &1 == "")) do
+  [key, value] = String.split(line, "=", parts: 2)
+  System.put_env(String.trim(key), String.trim(value))
+end
+
+if database_url = System.get_env("DATABASE_URL") do
+  config :frontier, Frontier.Repo,
+    url: database_url,
+    stacktrace: true,
+    show_sensitive_data_on_connection_error: true,
+    ssl: true,
+    pool_size: 10
+else
+  config :frontier, Frontier.Repo,
+    username: "postgres",
+    password: "postgres",
+    hostname: "localhost",
+    database: "frontier_dev",
+    stacktrace: true,
+    show_sensitive_data_on_connection_error: true,
+    pool_size: 10
+end
 
 config :frontier, FrontierWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}],
