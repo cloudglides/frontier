@@ -1,10 +1,12 @@
 import Config
 
-for line <- File.stream!(Path.expand(".env"))
-        |> Stream.map(&String.trim/1)
-        |> Stream.reject(&(String.starts_with?(&1, "#") || &1 == "")) do
-  [key, value] = String.split(line, "=", parts: 2)
-  System.put_env(String.trim(key), String.trim(value))
+if File.exists?(Path.expand(".env")) do
+  for line <- File.stream!(Path.expand(".env"))
+              |> Stream.map(&String.trim/1)
+              |> Stream.reject(&(String.starts_with?(&1, "#") || &1 == "")) do
+    [key, value] = String.split(line, "=", parts: 2)
+    System.put_env(String.trim(key), String.trim(value))
+  end
 end
 
 if database_url = System.get_env("DATABASE_URL") do
