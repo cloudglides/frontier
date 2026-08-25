@@ -14,7 +14,10 @@ defmodule FrontierWeb.ConnCase do
   end
 
   setup tags do
-    Frontier.DataCase.setup_sandbox(tags)
+    if tags[:db] do
+      Frontier.DataCase.setup_sandbox(tags)
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

@@ -3,6 +3,6 @@ defmodule FrontierWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")
-    assert html_response(conn, 200) =~ "work in progress!"
+    assert html_response(conn, 200) =~ "can you figure this out?"
   end
 end
