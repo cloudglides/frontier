@@ -14,6 +14,10 @@ defmodule FrontierWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/.well-known/appspecific", FrontierWeb do
+    get "/*path", WellKnownController, :chrome_devtools
+  end
+
   scope "/", FrontierWeb do
     pipe_through :browser
 

@@ -79,13 +79,16 @@ defmodule Frontier.MixProject do
       setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      test: ["test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
-      "assets.build": ["compile", "tailwind frontier", "esbuild frontier"],
+      "assets.build": ["compile", "tailwind frontier", "esbuild frontier", "copy_fonts"],
+      copy_fonts:
+        "run --no-start -e 'File.rm_rf!(\"priv/static/assets/vendor/fonts\"); File.mkdir_p!(\"priv/static/assets/vendor/fonts\"); File.cp_r!(\"assets/vendor/fonts\", \"priv/static/assets/vendor/fonts\")'",
       "assets.deploy": [
         "tailwind frontier --minify",
         "esbuild frontier --minify",
-        "phx.digest"
+        "phx.digest",
+        "copy_fonts"
       ],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]
     ]

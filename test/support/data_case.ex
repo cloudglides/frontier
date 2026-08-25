@@ -13,7 +13,10 @@ defmodule Frontier.DataCase do
   end
 
   setup tags do
-    Frontier.DataCase.setup_sandbox(tags)
+    if tags[:db] do
+      Frontier.DataCase.setup_sandbox(tags)
+    end
+
     :ok
   end
 
